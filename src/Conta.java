@@ -22,13 +22,13 @@ public class Conta {
 
     //Método que modifica o valor do saldo. Usa uma variável auxiliar como parâmetro, para calcular o valor do saque.
     void setSacar(double saque){
-        this.saldo = getSaldo()-saque;
+        setSaldo(getSaldo()-saque);
         System.out.printf(">>>Saque de %.2f realizado com sucesso!<<<\n",saque);
     }
 
     //Método para depositar, esta com um pós incremento porque ainda estou ajustando como irei fazer para receber um valor e depositar.
     void setDepositar(double deposito){
-        this.saldo = saldo+deposito;
+        setSaldo(getSaldo()+deposito);
         System.out.printf(">>>Deposito de %.2f realizado com sucesso!<<<\n", deposito);
     }
 
