@@ -7,15 +7,18 @@ public class Conta {
     private boolean status;
 
     //Construtor padrão da classe
-    public Conta(String nomeCorrentista, String numeroDaConta, double limiteCheque, boolean status){
+    public Conta(String nomeCorrentista, String numeroDaConta, double limiteCheque, double saldo, boolean status){
         this.nomeCorrentista = nomeCorrentista;
         this.numeroDaConta = numeroDaConta;
         this.limiteCheque = limiteCheque;
+        this.saldo = saldo;
         this.status = status;
     }
 
+
     //Método para depositar, esta com um pós incremento porque ainda estou ajustando como irei fazer para receber um valor e depositar.
     public void depositar(double deposito){
+        //this.setSaldo(getSaldo()+deposito);
         if (getStatus()){
             this.setSaldo(getSaldo()+deposito);
             System.out.printf("Deposito de %.2f realizado com sucesso.\n", deposito);
@@ -52,6 +55,14 @@ public class Conta {
     //Método status conta aberta ou fechada
     public boolean getStatus() {
         return status;
+    }
+
+    public String getNumeroDaConta() {
+        return numeroDaConta;
+    }
+
+    public void setNumeroDaConta(String numeroDaConta) {
+        this.numeroDaConta = numeroDaConta;
     }
 
     //Métodos para modificar e retornar o limite de cheque especial;

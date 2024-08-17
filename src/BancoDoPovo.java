@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class BancoDoPovo {
@@ -7,8 +8,7 @@ public class BancoDoPovo {
         Scanner teclado = new Scanner(System.in); //objeto para leitura de dados do teclado;
         ArrayList<Conta> contas = new ArrayList<Conta>();//array para armazenar as contas;
         Agencia agenciaatual = new Agencia("", ""); //objeto de criação da agência;
-
-        Conta minhaConta = new Conta("nome",  "0",0, false);//objeto que armazena os dados de contas no array;
+        Conta minhaConta = new Conta("nome",  "0",0,  0, false);//objeto que armazena os dados de contas no array;
 
         //Chamada do método menu;
         menu();
@@ -46,28 +46,52 @@ public class BancoDoPovo {
                     System.out.print("Número da conta: ");
                     String numeroDaConta = teclado.nextLine();
 
+                    System.out.print("Saldo: ");
+                    double saldo = teclado.nextDouble();
+
                     System.out.print("Limite para cheque especial: ");
                     double limiteCheque = teclado.nextDouble();
 
-                    minhaConta = new Conta(nome, numeroDaConta, limiteCheque, true);
+                    minhaConta = new Conta(nome, numeroDaConta, limiteCheque, saldo, true);
                     contas.add(minhaConta);
 
                     System.out.println(">>>Conta Criada com sucesso<<<");
                     break;
                 case 3:
                     //DEPOSITAR
-                    System.out.print("Valor depositado: ");
-                    minhaConta.depositar(teclado.nextDouble());
+                    System.out.print("Conta deposito: ");
+                    teclado.nextLine();
+                    String buscaDeposito = teclado.nextLine();
+                    for (Conta buscaConta:contas){
+                        if (Objects.equals(buscaConta.getNumeroDaConta(), buscaDeposito)){
+                            System.out.print("Valor para depositar: ");
+                            buscaConta.depositar(teclado.nextDouble());
+                        }
+                    }
                     break;
                 case 4:
                     //SACAR
-                    System.out.print("Valor de saque:");
-                    minhaConta.sacar(teclado.nextDouble());
+                    System.out.print("Conta para saque: ");
+                    teclado.nextLine();//buffer
+                    String buscaSaque = teclado.nextLine();
+                    for (Conta buscaConta : contas){
+                        if (Objects.equals(buscaConta.getNumeroDaConta(), buscaSaque)) {
+                            System.out.print("Valor do saque: ");
+                            buscaConta.sacar(teclado.nextDouble());
+                        }
+                    }
                     break;
 
                 case 5:
                     //VER SALDO
-                    System.out.println("Seu saldo é R$ " + minhaConta.getSaldo());
+                    System.out.print("Conta para ver o saldo: ");
+                    teclado.nextLine();
+                    String buscaSaldo = teclado.nextLine();
+                    for (Conta buscaConta:contas) {
+                        if (Objects.equals(buscaConta.getNumeroDaConta(), buscaSaldo)) {
+                            System.out.println("Seu saldo é R$ " + buscaConta.getSaldo());
+                        }
+                    }
                     break;
 
                 case 6:
