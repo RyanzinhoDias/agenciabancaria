@@ -1,12 +1,11 @@
-import java.util.ArrayList;
 
 public class Agencia {
     public String agencia;
     public String localAgencia;
 
-    public Agencia() {
-        this.agencia = "000";
-        this.localAgencia = "Local Agencia";
+    public Agencia(String agencia, String localAgencia) {
+        this.agencia = agencia;
+        this.localAgencia = localAgencia;
     }
 
     public void setAgencia(String agencia){

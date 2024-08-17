@@ -5,17 +5,17 @@ public class BancoDoPovo {
     public static void main(String[] args) {
         //Instanciando objetos
         Scanner teclado = new Scanner(System.in); //objeto para leitura de dados do teclado;
-        ArrayList<Conta> contas = new ArrayList<>();//array para armazenar as contas;
-        Conta minhaConta = new Conta("nome", "00000", 0, false);//objeto que armazena os dados de contas no array;
-        Agencia agenciaatual = new Agencia(); //objeto de criação da agência;
+        ArrayList<Conta> contas = new ArrayList<Conta>();//array para armazenar as contas;
+        Agencia agenciaatual = new Agencia("", ""); //objeto de criação da agência;
 
-        //Chamada do método menu para;
+        Conta minhaConta = new Conta("nome",  "0",0, false);//objeto que armazena os dados de contas no array;
+
+        //Chamada do método menu;
         menu();
 
         //Variáveis auxiliares, para manter funcionamento do loop e informação da agência atual;
         int opcao;
         int auxAgencia = 0;
-        int auxConta = 0;
 
         //loop do sistema;
         do {
@@ -23,10 +23,6 @@ public class BancoDoPovo {
             if (auxAgencia > 0){
                 System.out.printf("\n-=-=-=-= Número da agência: %s -- Local da agência: %s =-=-=-=-\n", agenciaatual.getAgencia(), agenciaatual.getLocalAgencia());
             }
-            if (auxConta > 0){
-                System.out.printf("Usuário online: %s\nConta: %s\n", minhaConta.getNomeCorrentista(), minhaConta.getNumeroDaConta());
-            }
-
             System.out.print("\nDigite o número da opção que você deseja: ");
             opcao = teclado.nextInt();
 
@@ -44,19 +40,19 @@ public class BancoDoPovo {
                 case 2:
                     //CRIAR CONTA
                     System.out.print("Nome: ");
-                    teclado.nextLine();
-                    minhaConta.setNomeCorrentista(teclado.nextLine());
+                    teclado.nextLine();//buffer
+                    String nome = teclado.nextLine();
 
                     System.out.print("Número da conta: ");
-                    minhaConta.setNumeroDaConta(teclado.nextLine());
+                    String numeroDaConta = teclado.nextLine();
 
                     System.out.print("Limite para cheque especial: ");
-                    minhaConta.setLimiteCheque(teclado.nextDouble());
-                    minhaConta.setStatus(true);
+                    double limiteCheque = teclado.nextDouble();
 
+                    minhaConta = new Conta(nome, numeroDaConta, limiteCheque, true);
                     contas.add(minhaConta);
+
                     System.out.println(">>>Conta Criada com sucesso<<<");
-                    auxConta++;
                     break;
                 case 3:
                     //DEPOSITAR
@@ -68,31 +64,27 @@ public class BancoDoPovo {
                     System.out.print("Valor de saque:");
                     minhaConta.sacar(teclado.nextDouble());
                     break;
-                case 5:
-                    //TRANSFERIR
-                    System.out.println("ainda não está pronto");
-                    break;
 
-                case 6:
+                case 5:
                     //VER SALDO
                     System.out.println("Seu saldo é R$ " + minhaConta.getSaldo());
                     break;
 
-                case 7:
+                case 6:
                     //ENCERRAR CONTA
-                    auxConta = 0;
-                    minhaConta = new Conta("nome", "00000", 0, false);
-                    System.out.println(">>>Conta encerrada com sucesso<<<");
+                    contas.clear();
+                    System.out.println(">>>Contas encerradas com sucesso<<<");
                     break;
 
-                case 8:
+                case 7:
                     //ENCERRAR AGENCIA
                     auxAgencia = 0;//com essa atribuição a condição da linha 24 será falso.
+                    agenciaatual = new Agencia("", "");
                     System.out.println(">>>Agência encerrada com sucesso<<<");
                     menu();
                     break;
 
-                case 9:
+                case 8:
                     //SAIR
                     System.out.println("\nObrigado por usar nossos serviços, até a próxima.");
                     break;
@@ -102,11 +94,12 @@ public class BancoDoPovo {
                     System.out.println("Opção inválida.");
                     break;
             }
-        } while (opcao != 9);
+        } while (opcao != 8);
+
     }
     static void menu(){
         System.out.println("\n=-=-=-=-=- BANCO DO POVO -=-=-=-=-=");
-        System.out.println("1 - Criar Agência;\n2 - Criar Conta;\n3 - Depositar;\n4 - Sacar;\n5 - Transferir\n6 - Ver Saldo;\n7 - Encerrar Conta;\n8 - Encerrar Agência;\n9 - Sair.");
+        System.out.println("1 - Criar Agência;\n2 - Criar Conta;\n3 - Depositar;\n4 - Sacar;\n5 - Ver Saldo;\n6 - Encerrar Contas;\n7 - Encerrar Agência;\n8 - Sair.");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     }
 }
